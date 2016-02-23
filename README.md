@@ -1,4 +1,5 @@
 # FireSlack
+Multi-users supported
 
 ## Build & development
 
