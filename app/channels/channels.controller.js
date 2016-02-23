@@ -3,6 +3,8 @@ angular.module('angularfireSlackApp')
 
 		var channelsCtrl = this;
 
+    Users.setOnline(profile.$id);
+
 		channelsCtrl.newChannel = {
 			name: ''
 		};
@@ -18,12 +20,15 @@ angular.module('angularfireSlackApp')
 			channelsCtrl.channels.$add(channelsCtrl.newChannel).then(function(ref){
 				$state.go('channels.messages', {channelId: ref.key()});
 			});
-		}
+		};
 
 		channelsCtrl.logout = function(){
-			Auth.$unauth();
-			$state.go('home');
-		}
+      channelsCtrl.profile.online = null;
+      channelsCtrl.profile.$save().then(function(){
+        Auth.$unauth();
+        $state.go('home');
+      });
+		};
 
 
 	});
